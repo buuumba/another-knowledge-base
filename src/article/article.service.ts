@@ -18,14 +18,16 @@ export class ArticleService {
   }
 
   async findAll(filterTags?: string[]): Promise<Article[]> {
-    if (filterTags) {
-      return this.articleRepository.find({
-        where: { tags: filterTags, isPublic: true },
-      });
-    }
-    return this.articleRepository.find({ where: { isPublic: true } });
-  }
+    const query = this.articleRepository.createQueryBuilder('article');
 
+    if (filterTags) {
+      query.andWhere(':tag = ANY(article.tags)', { tag: filterTags });
+    }
+
+    query.andWhere('article.isPublic = :isPublic', { isPublic: true });
+
+    return query.getMany();
+  }
   async findOne(id: number): Promise<Article> {
     const article = await this.articleRepository.findOne(id);
     if (!article) {
