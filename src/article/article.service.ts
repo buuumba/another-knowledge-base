@@ -29,7 +29,7 @@ export class ArticleService {
     return query.getMany();
   }
   async findOne(id: number): Promise<Article> {
-    const article = await this.articleRepository.findOne(id);
+    const article = await this.articleRepository.findOne({ where: { id } });
     if (!article) {
       throw new NotFoundException('Article not found');
     }
