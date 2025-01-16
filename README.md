@@ -80,11 +80,27 @@ $ npm run test:cov
 
 ```plaintext
 src/
-├── article/            # Модуль для работы со статьями
-├── auth/               # Модуль авторизации (JWT)
-├── user/               # Модуль для управления пользователями
-├── main.ts             # Точка входа в приложение
-├── app.module.ts       # Главный модуль приложения
+├── features/
+│   ├── article/
+│   │   ├── entities/
+│   │   │   ├── article.entity.ts
+│   │   ├── article.controller.ts
+│   │   ├── article.module.ts
+│   │   ├── article.service.ts
+│   ├── user/
+│       ├── entities/
+│       │   ├── user.entity.ts
+│       ├── user.controller.ts
+│       ├── user.module.ts
+│       ├── user.service.ts
+├── auth/
+│   ├── auth.controller.ts
+│   ├── auth.module.ts
+│   ├── auth.service.ts
+│   ├── jwt-auth.guard.ts
+│   ├── jwt.strategy.ts
+├── main.ts
+
 ```
 
 ## Возможные проблемы
@@ -97,3 +113,16 @@ src/
 ### Ошибка подключения к базе данных
 
 - Проверьте, что база данных запущена и доступна по указанным параметрам.
+
+# TODO
+
+- Добавить миграции
+- Добавить логирование
+- Добавить ExceptionFilter
+- Добавление конфигов (https://docs.nestjs.com/techniques/configuration#custom-configuration-files
+  https://docs.nestjs.com/techniques/configuration#using-the-configservice
+  )
+- GIN index на title
+- Реализация на другой ORM (например Prisma)
+- Swagger
+- Реализовать хэширование паролей с солью
