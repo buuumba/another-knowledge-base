@@ -1,13 +1,21 @@
-import { IsString, IsArray, IsBoolean, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsArray,
+  IsBoolean,
+  IsOptional,
+  ArrayNotEmpty,
+} from 'class-validator';
 
 export class CreateArticleDto {
   @IsString()
-  title: string;
+  title: string; // Заголовок статьи
 
   @IsString()
-  content: string;
+  content: string; // Содержание статьи
 
   @IsArray()
+  @ArrayNotEmpty() // Проверяет, что массив не пустой
+  @IsString({ each: true }) // Проверяет, что каждый элемент массива — строка
   tags: string[];
 
   @IsBoolean()

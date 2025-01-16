@@ -1,22 +1,30 @@
-import { IsString, IsArray, IsBoolean, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsArray,
+  IsBoolean,
+  IsOptional,
+  ArrayNotEmpty,
+} from 'class-validator';
 
 export class UpdateArticleDto {
-  @IsString()
-  @IsOptional()
-  title?: string;
+  @IsString() // Проверяет, что заголовок является строкой
+  @IsOptional() // Указывает, что поле необязательно для обновления
+  title?: string; // Поле для обновления заголовка статьи
 
-  @IsString()
-  @IsOptional()
-  content?: string;
+  @IsString() // Проверяет, что содержимое статьи является строкой
+  @IsOptional() // Указывает, что поле необязательно для обновления
+  content?: string; // Поле для обновления содержимого статьи
 
-  @IsArray()
-  @IsOptional()
-  tags?: string[];
+  @IsArray() // Проверяет, что теги передаются как массив
+  @ArrayNotEmpty() // Убеждается, что массив тегов не пустой
+  @IsOptional() // Указывает, что поле необязательно для обновления
+  @IsString({ each: true }) // Проверяет, что каждый элемент массива является строкой
+  tags?: string[]; // Поле для обновления тегов статьи
 
-  @IsBoolean()
-  @IsOptional()
-  isPublic?: boolean;
+  @IsBoolean() // Проверяет, что значение является булевым (true/false)
+  @IsOptional() // Указывает, что поле необязательно для обновления
+  isPublic?: boolean; // Поле для обновления флага публичности статьи
 
-  @IsOptional()
-  userId?: number;
+  @IsOptional() // Указывает, что поле необязательно для обновления
+  userId?: number; // Поле для обновления ID пользователя, связанного с данной статьёй
 }

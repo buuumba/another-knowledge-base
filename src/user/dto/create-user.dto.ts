@@ -1,12 +1,12 @@
 import { IsEmail, IsString, MinLength } from 'class-validator';
 
 export class CreateUserDto {
-  @IsEmail()
-  email: string;
+  @IsEmail() // Проверяет, что переданное значение является валидным email
+  email: string; // Email пользователя (обязательное поле, должно быть уникальным)
 
-  @IsString()
-  @MinLength(6)
-  password: string;
+  @IsString() // Проверяет, что содержимое статьи является строкой
+  @MinLength(6) // Проверяет, что длина пароля не меньше 6 символов
+  password: string; // Пароль пользователя (обязательное поле)
 
   @IsString()
   fullName: string; // Дополнительное поле для имени пользователя
