@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
-import { ArticleService } from './article/article.service';
-import { ArticleModule } from './article/article.module';
-import { UserService } from './user/user.service';
-import { UserController } from './user/user.controller';
-import { UserModule } from './user/user.module';
+import { ArticleService } from './features/article/article.service';
+import { ArticleModule } from './features/article/article.module';
+import { UserService } from './features/user/user.service';
+import { UserController } from './features/user/user.controller';
+import { UserModule } from './features/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(), // Метод validate вызывается для каждого валидного токена
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST, // Хост базы данных

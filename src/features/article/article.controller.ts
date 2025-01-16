@@ -8,11 +8,13 @@ import {
   Patch,
   Delete,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Request } from 'express';
 
 @Controller('article')
 export class ArticleController {
@@ -25,16 +27,19 @@ export class ArticleController {
     return this.articleService.create(createArticleDto);
   }
 
-  // Получение всех публичных статей, с возможностью фильтрации по тегам
+  // Получение всех публичных статей, с возможностью фильтрации по тегам и с учётом авторизации
   @Get()
-  findAll(@Query('tags') tags: string[]) {
-    return this.articleService.findAll(tags);
+  // Получение всех статей
+  async findAll(@Req() req: Request, @Query('tags') tags: string[]) {
+    const isAuthenticated = !!req.user; // Проверка авторизованности
+    return this.articleService.findAll(isAuthenticated, tags);
   }
 
-  // Получение одной статьи по ID
-  @Get(':id') // Доступ для всех, но только публичные статьи
-  findOne(@Param('id') id: number) {
-    return this.articleService.findOne(id);
+  // Получение одной статьи с учётом авторизации
+  @Get(':id')
+  async findOne(@Req() req: Request, @Param('id') id: number) {
+    const isAuthenticated = !!req.user; // Проверка авторизованности
+    return this.articleService.findOne(id, isAuthenticated);
   }
 
   // Обновление статьи доступно только авторизованным пользователям
