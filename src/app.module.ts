@@ -10,15 +10,15 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot(), // Метод validate вызывается для каждого валидного токена
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DB_HOST,
-      port: +process.env.DB_PORT,
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE,
-      synchronize: true,
+      host: process.env.DB_HOST, // Хост базы данных
+      port: +process.env.DB_PORT, // Порт базы данных
+      username: process.env.DB_USERNAME, // Пользователь базы данных
+      password: process.env.DB_PASSWORD, // Пароль базы данных
+      database: process.env.DB_DATABASE, // Имя базы данных
+      synchronize: true, // Автоматическое обновление схемы базы данных (только для разработки)
     }),
     UserModule,
     ArticleModule,

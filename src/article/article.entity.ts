@@ -4,16 +4,16 @@ import { User } from 'src/user/user.entity';
 @Entity()
 export class Article {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number; // Уникальный идентификатор статьи
 
   @Column()
-  title: string;
+  title: string; // Заголовок статьи
 
   @Column()
-  content: string;
+  content: string; // Содержимое статьи
 
   @Column('simple-array')
-  tags: string[];
+  tags: string[]; // Массив тегов, сохранённый в виде строки
 
   @Column({ default: false })
   isPublic: boolean;

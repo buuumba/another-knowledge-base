@@ -1,16 +1,19 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Включение глобальной валидации
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, // Удаляет поля, отсутствующие в DTO
+      forbidNonWhitelisted: true, // Вызывает ошибку при наличии неразрешённых полей
+      transform: true, // Автоматически преобразует типы
+    }),
+  );
+
   await app.listen(3000);
 }
 bootstrap();
-
-console.log('Database Config:', {
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
-});

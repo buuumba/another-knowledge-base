@@ -10,13 +10,14 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
+  // Валидация пользователя по email и паролю
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.userService.findByEmail(email);
     if (user && (await bcrypt.compare(password, user.password))) {
-      const { password, ...result } = user;
+      const { password, ...result } = user; // Убираем пароль из возвращаемого объекта
       return result;
     }
-    return null;
+    return null; // Если пользователь не найден или пароль неверен
   }
 
   async login(user: any) {

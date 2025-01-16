@@ -11,8 +11,8 @@ import { AuthController } from './auth.controller';
     UserModule,
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'secretKey', // Замените на более надёжный ключ
-      signOptions: { expiresIn: '1h' },
+      secret: process.env.JWT_SECRET || 'secretKey', // Секретный ключ для подписи JWT
+      signOptions: { expiresIn: '1h' }, // Время жизни токена
     }),
   ],
   providers: [AuthService, JwtStrategy],

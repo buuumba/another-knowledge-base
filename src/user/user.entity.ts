@@ -3,14 +3,14 @@ import { Article } from 'src/article/article.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number; // Уникальный идентификатор пользователя
 
   @Column({ unique: true })
-  email: string;
+  email: string; // Email пользователя (уникальный)
 
   @Column()
-  password: string;
+  password: string; // Хешированный пароль пользователя
 
   @OneToMany(() => Article, (article) => article.user)
-  articles: Article[];
+  articles: Article[]; // Связь один-ко-многим с сущностью Article
 }
