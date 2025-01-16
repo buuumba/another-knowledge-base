@@ -12,11 +12,13 @@ export class ArticleService {
     private readonly articleRepository: Repository<Article>,
   ) {}
 
+  // Создание новой статьи
   async create(createArticleDto: CreateArticleDto): Promise<Article> {
     const article = this.articleRepository.create(createArticleDto);
     return this.articleRepository.save(article);
   }
 
+  // Получение списка всех публичных статей, с возможностью фильтрации по тегам
   async findAll(filterTags?: string[]): Promise<Article[]> {
     const query = this.articleRepository.createQueryBuilder('article');
 
